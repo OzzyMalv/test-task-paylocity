@@ -3,14 +3,18 @@ const dependent_cost_per_year = 500;
 const discount_for_name_percent = 0.1;
 const paychecks_amount_per_year = 26;
 
+const withDiscount = (name) => {
+  return name.toUpperCase().startsWith("A");
+}
+
 export const calculateCostPerPaycheck = (employeeName, dependentNames) => {
   let totalCostPerYear = employee_cost_per_year;
-  if (employeeName.startsWith("A")) {
+  if (withDiscount(employeeName)) {
     totalCostPerYear -= employee_cost_per_year * discount_for_name_percent;
   }
   dependentNames.forEach((dependentName) => {
     let cost = dependent_cost_per_year;
-    if (dependentName.startsWith("A")) {
+    if (withDiscount(dependentName)) {
       cost -= dependent_cost_per_year * discount_for_name_percent;
     }
     totalCostPerYear += cost;
@@ -22,7 +26,7 @@ export const calculateCostPerPaycheck = (employeeName, dependentNames) => {
 // without dependents
 export const calculateCostPerEmployee = (employeeName) => {
   let totalCostPerYear = employee_cost_per_year;
-  if (employeeName.startsWith("A")) {
+  if (withDiscount(employeeName)) {
     totalCostPerYear -= employee_cost_per_year * discount_for_name_percent;
   }
 
@@ -32,7 +36,7 @@ export const calculateCostPerEmployee = (employeeName) => {
 // only dependent cost
 export const calculateCostPerEmployeeDependents = (dependentName) => {
     let cost = dependent_cost_per_year;
-    if (dependentName.startsWith("A")) {
+    if (withDiscount(dependentName)) {
       cost -= dependent_cost_per_year * discount_for_name_percent;
     }
 
